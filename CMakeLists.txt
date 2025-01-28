@@ -3,8 +3,15 @@ set(PROJECT_NAME SHEEESH)
 
 project(${PROJECT_NAME})
 
+set(CMAKE_CCX_STANDART 17)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+
+add_executable(${PROJECT_NAME}
+src/main.cpp
+src/Renderer/ShaderProgram.cpp
+src/Renderer/ShaderProgram.h)
+
+target_include_directories(${PROJECT_NAME} PRIVATE external/glad/include)
 
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
