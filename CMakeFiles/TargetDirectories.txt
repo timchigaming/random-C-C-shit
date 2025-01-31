@@ -1,5 +1,0 @@
-C:/Users/TimChi/Desktop/Visual Studio Code Projects/CPP/random-C-C-shit/CMakeFiles/SHEEESH.dir
-C:/Users/TimChi/Desktop/Visual Studio Code Projects/CPP/random-C-C-shit/CMakeFiles/edit_cache.dir
-C:/Users/TimChi/Desktop/Visual Studio Code Projects/CPP/random-C-C-shit/CMakeFiles/rebuild_cache.dir
-C:/Users/TimChi/Desktop/Visual Studio Code Projects/CPP/random-C-C-shit/external/glfw/CMakeFiles/edit_cache.dir
-C:/Users/TimChi/Desktop/Visual Studio Code Projects/CPP/random-C-C-shit/external/glfw/CMakeFiles/rebuild_cache.dir
