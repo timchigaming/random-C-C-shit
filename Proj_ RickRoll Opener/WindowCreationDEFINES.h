@@ -19,10 +19,13 @@ static void ToggleRickRoll(DWORD mode);
 // Дефайны для нажатий на меню
 #define menu_File           101
 #define submenu_PeterAlert  102
-#define submenu_Exit        103
+#define submenu_EditURL        103
+#define submenu_Exit        104
 
 // Дефайны для нажатий на КНОПКИ
 #define btn_Easy            1
+// Зарезервировано
+#define btn_EditUrl			4
 
 // Режимы сложности
 #define EasyMode            2000
@@ -36,3 +39,8 @@ static std::atomic<bool> weDontWantToStop(true); // Заменяем bool на atomic
 static std::thread* rickRockOpener = nullptr; // Инициализируем nullptr
 static std::mutex weDontWantToStopMutex;
 static bool isRickRolling = false;
+// Эдит бокс, который мы будем добавлять когда прожали на нужное для этого подменя.
+HWND editBox = NULL;
+// Кнопка под эдитбоксом. Заносим их в переменные чтоб потом удалить.
+HWND editBox_ConfirmBtn = NULL;
+WCHAR editBox_Text[256] = L"https://youtu.be/sEwMKGMvzf4";

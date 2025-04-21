@@ -36,6 +36,18 @@ LRESULT CALLBACK Main(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 		{
 			switch (wp)
 			{ // Нажатия на меню
+				case submenu_EditURL:
+				{
+					if (!editBox)
+					{
+						editBox = CreateWindowA("edit", "введи свою ссылку", 
+							WS_VISIBLE | WS_CHILD | ES_CENTER | ES_MULTILINE | WS_VSCROLL,
+							170, 25, 300, 20, hWnd, NULL, NULL, NULL);
+
+						editBox_ConfirmBtn = CreateWindowA("button", "Применить", WS_VISIBLE | WS_CHILD, 280, 45, 80, 20, hWnd, (HMENU)btn_EditUrl, NULL, NULL);
+					}
+					break;
+				}
 				case submenu_PeterAlert:
 				{
 					MessageBox(hWnd, L"Peter Alert", L"Peter Alert", (MB_APPLMODAL | MB_ICONMASK));
@@ -57,6 +69,13 @@ LRESULT CALLBACK Main(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 				case btn_Easy:
 				{
 					ToggleRickRoll(EasyMode);
+					break;
+				}
+				case btn_EditUrl:
+				{
+					GetWindowText(editBox, editBox_Text, 255); // Получаем текст с мессагебокса и заносим его в переменную что хранит URl
+					DestroyWindow(editBox);
+					DestroyWindow(editBox_ConfirmBtn);
 					break;
 				}
 				default:
@@ -105,6 +124,7 @@ static void AddMenus(HWND hWnd)
 
 	AppendMenu(RootMenu_File, MF_POPUP, (UINT_PTR)SubMenu, L"Приложение");
 		AppendMenu(SubMenu, MF_STRING, submenu_PeterAlert, L"Peter Alert!");
+		AppendMenu(SubMenu, MF_STRING, submenu_EditURL, L"Сменить URL");
 		AppendMenu(SubMenu, MF_SEPARATOR, NULL, NULL);
 		AppendMenu(SubMenu, MF_STRING, submenu_Exit, L"Закрыть");
 
@@ -114,7 +134,7 @@ static void AddMenus(HWND hWnd)
 static void AddWidgets(HWND hWnd)
 {
 	CreateWindowA("static", "Открыватор РикРоллов v2 by TimChi", WS_VISIBLE | WS_CHILD | ES_CENTER, 170, 5, 300, 20, hWnd, NULL, NULL, NULL);
-	CreateWindowA("button", "Легко", WS_VISIBLE | WS_CHILD, 270, 180, 100, 50, hWnd, (HMENU)btn_Easy, NULL, NULL);
+	CreateWindowA("button", "Легко", WS_VISIBLE | WS_CHILD, 270, 230, 100, 50, hWnd, (HMENU)btn_Easy, NULL, NULL);
 }
 
 // Функция для открытия RickRoll
@@ -122,7 +142,7 @@ static void OpenRickRoll(DWORD mode)
 {
 	while (weDontWantToStop.load())
 	{ // Используем atomic вместо мьютекса для проверки
-		ShellExecute(NULL, NULL, L"https://youtu.be/sEwMKGMvzf4", NULL, NULL, SW_SHOWNORMAL);
+		ShellExecute(NULL, NULL, editBox_Text, NULL, NULL, SW_SHOWNORMAL);
 		std::this_thread::sleep_for(std::chrono::milliseconds(mode));
 	}
 }
